@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutDash.cshtml";
+    int role = ViewBag.Role;
+}
+
+
+<div class="container">
+    <input type="text" id="role" name="email" hidden  value="@role"/>
+    <div class="row" id="cancel-row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+            <div class="widget">
+                <div class="widget-heading mt-2">
+                    <h4 style="padding-bottom: 15px; text-align:center" class="font-weight-450 mb-0"> Clientes</h4>
+                </div>
+
+                <div class="form-horizontal" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding:20px;">
+                    <div class="form-group row mb-2">
+                        <label for="TematicaID" class="control-label col-md-2">Email</label>
+                        <div class="col-md-10">
+                            <input type="text" id="email" name="email" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="TematicaID" class="control-label col-md-2">Contraseña</label>
+                        <div class="col-md-10">
+                            <input type="text" id="password" name="password" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Login Url</label>
+                        <div class="col-md-10">
+                            <input type="text" id="url" name="url" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Node Name</label>
+                        <div class="col-md-10">
+                            <input type="text" id="nodeName" name="nodeName" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Hora de inicio Reporte</label>
+                        <div class="col-md-10">
+                            <input type="time" id="inicioReporte" name="inicioReporte" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Hola finalizada Reporte </label>
+                        <div class="col-md-10">
+                            <input type="time" id="finReporte" name="finReporte" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Time Span </label>
+                        <div class="col-md-10">
+                            <input type="number" id="timespan" name="timespan" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Carpeta </label>
+                        <div class="col-md-10">
+                            <input type="text" id="urlcarpeta" name="urlcarpeta" class="form-control" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2" id="conteinerTematicaPadre">
+                        <label for="TematicaID" class="control-label col-md-2">Status</label>
+                        <div class="col-md-10">
+                            <select class="form-select" aria-label="Default select example" id="statusSelect">
+                                <option selected>Seleccione un role</option>
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Notificar </label>
+                        <div class="col-md-10">
+                            <input type="text" id="emailNotificacion" name="emailNotificacion" class="form-control" placeholder="Email (ejemplo@gmail.com)" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Fecha Suscripcion  </label>
+                        <div class="col-md-10">
+                            <input type="date" id="suscripcion" name="suscripcion" class="form-control" placeholder="" />
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2">
+                        <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="token" rows="3"></textarea>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12" style="text-align:right; display:block;">
+                    <input type="submit" value="Guardar" id="btnGuardar" class="btn" style="background-color:#147A55; color:white" />
+                    <a class="btn" style="background-color:#D8431D; color:white;" type="button" href="/Cliente/Index">Regresar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+
+
+            $('#btnGuardar').click(function (e) {
+                e.preventDefault();
+              
+                 guardarDatos();
+             
+
+            });
+
+            function guardarDatos() {
+              
+                var emailValue = $("#email").val();
+                var passwordValue = $("#password").val();
+                var urlValue = $("#url").val();
+                var nodeNameValue = $("#nodeName").val();
+                var inicioReporteValue = $("#inicioReporte").val();
+                var finReporteValue = $("#finReporte").val();
+                var timespanValue = $("#timespan").val();
+                var urlcarpetaValue = $("#urlcarpeta").val();
+                var statusSelectValue = $("#statusSelect").val();
+              
+                var emailNotificacionValue = $("#emailNotificacion").val();
+                var ultimoreporteValue = $("#ultimoreporte").val();
+                var tokenValue = $("#token").val();
+
+                var suscripcion = $("#suscripcion").val();
+
+
+                var data = {              
+                    UserName: emailValue,
+                    Password: passwordValue,
+                    LoginUrl: urlValue,
+                    NodeName: nodeNameValue,
+                    TimeGenReports: inicioReporteValue,
+                    TimeDownReports: finReporteValue,
+                    Timespan: timespanValue,
+                    LocalFolder: urlcarpetaValue,                   
+                    StatusClient: statusSelectValue,                 
+                    FechaHoraUltimoReporte: ultimoreporteValue,
+                    EmailNotificaciones: emailNotificacionValue,
+                    Token: tokenValue,
+                    DateSubscribe: suscripcion
+
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Cliente/Save",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+                        if (response.success) {
+                            window.location.href = "/Cliente/Index";
+                        } else {
+                            alert("Error al guardar el registro: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+
+            function formControl() {
+                //campo fantasma
+                var role = $("#role").val();
+
+                var emailValue = $("#email").val();
+                var passwordValue = $("#password").val();
+                var urlValue = $("#url").val();
+                var nodeNameValue = $("#nodeName").val();
+                var inicioReporteValue = $("#inicioReporte").val();
+                var finReporteValue = $("#finReporte").val();
+                var timespanValue = $("#timespan").val();
+                var urlcarpetaValue = $("#urlcarpeta").val();
+                var statusSelectValue = $("#statusSelect").val();
+                var emailNotificacionValue = $("#emailNotificacion").val();
+                var ultimoreporteValue = $("#ultimoreporte").val();
+                var tokenValue = $("#token").val();
+                var suscripcion = $("#suscripcion").val();
+
+                if (role == 2)
+                {
+                    statusSelectValue.prop('readonly', true);
+                    suscripcion.prop('readonly', true);
+                }
+                else if (role == 3)
+                {
+                    
+                }
+            }
+
+        });
+
+    </script>
+}

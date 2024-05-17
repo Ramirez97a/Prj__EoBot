@@ -1,0 +1,13 @@
+﻿#btnsucces {
+    padding: 5px 20px;
+    background-color: #038512;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 14px;
+}
+    #btnsucces:hover {
+        border: 1px solid #0f94b2;
+        background-color: #fff;
+        color: #0f94b2;
+    }

@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Prj_Infraestructure.Models.RI_Users>
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutDash.cshtml";
+}
+
+
+<div class="container">
+
+    <div class="row" id="cancel-row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+
+            @foreach (var item in Model)
+            {
+                <div class="widget">
+                    <div class="widget-heading mt-2">
+                        <h4 style="padding-bottom: 15px; text-align:center" class="font-weight-450 mb-0"> Usuario</h4>
+                    </div>
+
+                    <input type="text" id="id" name="nombre" class="form-control" hidden value="@item.ID" />
+                    <div class="form-horizontal">
+                        <div class="form-group row mb-2">
+                            <label for="TematicaID" class="control-label col-md-2">Nombre</label>
+                            <div class="col-md-10">
+                                <input type="text" id="nombre" name="nombre" class="form-control" value="@item.Name" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="TematicaID" class="control-label col-md-2">Apellidos</label>
+                            <div class="col-md-10">
+                                <input type="text" id="apellidos" name="apellidos" class="form-control" value="@item.Surname" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="AceptoTerminos" class="control-label col-md-2">Email</label>
+                            <div class="col-md-10">
+                                <input type="text" id="email" name="email" class="form-control" value="@item.Email" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="AceptoTerminos" class="control-label col-md-2">Nombre usuario</label>
+                            <div class="col-md-10">
+                                <input type="text" id="username" name="username" class="form-control" value="@item.UserName" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <label for="AceptoTerminos" class="control-label col-md-2">Contraseña</label>
+                            <div class="col-md-10">
+                                <input type="text" id="password" name="password" class="form-control" value="@item.Password" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2" id="conteinerTematicaPadre">
+                            <label for="TematicaID" class="control-label col-md-2">Role</label>
+                            <div class="col-md-10">
+                                <select class="form-select" aria-label="Default select example" id="roleSelect">
+                                    <option value="0" @(item.Role == 0 ? "selected" : "")>Seleccione un role</option>
+                                    <option value="1" @(item.Role == 1 ? "selected" : "")>Administrador</option>
+                                    <option value="2" @(item.Role == 2 ? "selected" : "")>Usuario</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="conteinerTematicaPadre">
+                            <label for="TematicaID" class="control-label col-md-2">Status</label>
+                            <div class="col-md-10">
+                                <select class="form-select" aria-label="Default select example" id="statusSelect">
+                                    <option value="0" @(item.Status == 0 ? "selected" : "")>Seleccione un status</option>
+                                    <option value="1" @(item.Status == 1 ? "selected" : "")>Activo</option>
+                                    <option value="2" @(item.Status == 2 ? "selected" : "")>Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-12" style="text-align:right; display:block;">
+                        <input type="submit" value="Eliminar" id="btnDelete" class="btn" onclick="deleteUsers('@item.ID')" style="background-color:#147A55; color:white" />
+                        <a class="btn" style="background-color:#D8431D; color:white;" type="button" href="/Users/Index">Regresar</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+
+            function deleteUsers(id) {
+                var url = `/Users/Delete?id=${id}`;
+                $.ajax({
+                    type: "POST",
+                    url: url, 
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = "/Users/Index";
+                        } else {
+                            alert("Error al eliminar el registro: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+
+    </script>
+}

@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="sinertica_RLRobotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Rl_Robot">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserWeb" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordWeb" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoginUrl" Type="varchar" MaxLength="512" Nullable="false" />
+          <Property Name="NodeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeGenReports" Type="datetime" Nullable="false" />
+          <Property Name="TimeDownReports" Type="datetime" Nullable="false" />
+          <Property Name="Timespan" Type="int" Nullable="false" />
+          <Property Name="LocalFolder" Type="varchar" MaxLength="512" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="80" />
+          <Property Name="StatusClient" Type="int" />
+          <Property Name="CodError" Type="int" />
+          <Property Name="CodRequest" Type="int" />
+          <Property Name="DateSubscribe" Type="date" />
+          <Property Name="FechaHoraUltimoReporte" Type="datetime" />
+          <Property Name="EmailNotificaciones" Type="varchar" MaxLength="100" />
+          <Property Name="Token" Type="varchar" MaxLength="600" />
+        </EntityType>
+        <EntityType Name="RI_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="RI_Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Role" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CustomerID" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="FK_RI_Users_RI_Users">
+          <End Role="RI_Role" Type="Self.RI_Role" Multiplicity="0..1" />
+          <End Role="RI_Users" Type="Self.RI_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RI_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RI_Users">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sinertica_RLRobotModelStoreContainer">
+          <EntitySet Name="Rl_Robot" EntityType="Self.Rl_Robot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RI_Role" EntityType="Self.RI_Role" Schema="dev_sinertica" store:Type="Tables" />
+          <EntitySet Name="RI_Users" EntityType="Self.RI_Users" Schema="dev_sinertica" store:Type="Tables" />
+          <AssociationSet Name="FK_RI_Users_RI_Users" Association="Self.FK_RI_Users_RI_Users">
+            <End Role="RI_Role" EntitySet="RI_Role" />
+            <End Role="RI_Users" EntitySet="RI_Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sinertica_RLRobotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Rl_Robot">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="UserWeb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordWeb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginUrl" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NodeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeGenReports" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeDownReports" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Timespan" Type="Int32" Nullable="false" />
+          <Property Name="LocalFolder" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="StatusClient" Type="Int32" />
+          <Property Name="CodError" Type="Int32" />
+          <Property Name="CodRequest" Type="Int32" />
+          <Property Name="DateSubscribe" Type="DateTime" Precision="0" />
+          <Property Name="FechaHoraUltimoReporte" Type="DateTime" Precision="3" />
+          <Property Name="EmailNotificaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Token" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RI_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RI_Users" Relationship="Self.FK_RI_Users_RI_Users" FromRole="RI_Role" ToRole="RI_Users" />
+        </EntityType>
+        <EntityType Name="RI_Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="RI_Role" Relationship="Self.FK_RI_Users_RI_Users" FromRole="RI_Users" ToRole="RI_Role" />
+          <Property Name="CustomerID" Type="Guid" />
+        </EntityType>
+        <Association Name="FK_RI_Users_RI_Users">
+          <End Role="RI_Role" Type="Self.RI_Role" Multiplicity="0..1" />
+          <End Role="RI_Users" Type="Self.RI_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RI_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RI_Users">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="sinertica_RLRobotEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Rl_Robot" EntityType="Self.Rl_Robot" />
+          <EntitySet Name="RI_Role" EntityType="Self.RI_Role" />
+          <EntitySet Name="RI_Users" EntityType="Self.RI_Users" />
+          <AssociationSet Name="FK_RI_Users_RI_Users" Association="Self.FK_RI_Users_RI_Users">
+            <End Role="RI_Role" EntitySet="RI_Role" />
+            <End Role="RI_Users" EntitySet="RI_Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sinertica_RLRobotModelStoreContainer" CdmEntityContainer="sinertica_RLRobotEntities">
+          <EntitySetMapping Name="Rl_Robot">
+            <EntityTypeMapping TypeName="sinertica_RLRobotModel.Rl_Robot">
+              <MappingFragment StoreEntitySet="Rl_Robot">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserWeb" ColumnName="UserWeb" />
+                <ScalarProperty Name="PasswordWeb" ColumnName="PasswordWeb" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginUrl" ColumnName="LoginUrl" />
+                <ScalarProperty Name="NodeName" ColumnName="NodeName" />
+                <ScalarProperty Name="TimeGenReports" ColumnName="TimeGenReports" />
+                <ScalarProperty Name="TimeDownReports" ColumnName="TimeDownReports" />
+                <ScalarProperty Name="Timespan" ColumnName="Timespan" />
+                <ScalarProperty Name="LocalFolder" ColumnName="LocalFolder" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="StatusClient" ColumnName="StatusClient" />
+                <ScalarProperty Name="CodError" ColumnName="CodError" />
+                <ScalarProperty Name="CodRequest" ColumnName="CodRequest" />
+                <ScalarProperty Name="DateSubscribe" ColumnName="DateSubscribe" />
+                <ScalarProperty Name="FechaHoraUltimoReporte" ColumnName="FechaHoraUltimoReporte" />
+                <ScalarProperty Name="EmailNotificaciones" ColumnName="EmailNotificaciones" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RI_Role">
+            <EntityTypeMapping TypeName="sinertica_RLRobotModel.RI_Role">
+              <MappingFragment StoreEntitySet="RI_Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RI_Users">
+            <EntityTypeMapping TypeName="sinertica_RLRobotModel.RI_Users">
+              <MappingFragment StoreEntitySet="RI_Users">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

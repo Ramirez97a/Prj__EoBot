@@ -1,0 +1,13 @@
+﻿.form {
+    background-image: url(https://id-frontend.prod-east.frontend.public.atl-paas.net/assets/wac.92a80da2.svg);
+}
+.form-label{
+    color:black;
+}
+.card-body {
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    background: rgb(255, 255, 255);
+    padding: 32px 40px;
+    border-radius: 3px
+}
+
