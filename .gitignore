@@ -396,3 +396,28 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Additional entries from primero.gitignore
+*.com
+*.class
+*.dll.config
+applicationhost.config
+!/packages/*/lib/*.dll
+!/packages/*/lib/*/*.dll
+!*CommonReferences/*.dll
+TestResults/
+_ReSharper.*
+*.ReSharper.*
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.sqlite
+*.vsidx
+NuGet.exe
+_[Ss]cripts
+.vs/AgriStock/FileContentIndex/3397a96f-3e03-48c8-8f8c-55502a7b770e.vsidx
