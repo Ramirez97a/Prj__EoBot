@@ -23,12 +23,14 @@ namespace Prj_eOBot.Controllers
         }
         public async Task<ActionResult> Edit(int id)
         {
+            RI_Users userInSession = (RI_Users)Session["User"];
             try
             {
                 IServicioUsers _servicioUsers = new ServiceUsers();
                 RI_Users user =  await _servicioUsers.GetUserByIdAsync(id);
 
                 // Envía una lista que contenga solo el usuario a la vista
+                ViewBag.Role = userInSession.Role;
                 return View(new List<RI_Users> { user });
             }
             catch (Exception ex)
@@ -70,8 +72,16 @@ namespace Prj_eOBot.Controllers
                 }
                 else
                 {
-                    var userResult = await _servicioUsers.GetUserByCustomerAsync(user.CustomerID);
-                    olista = new List<RI_Users> { userResult };
+                    if (user.Role == 3)
+                    {
+                        var userResult = await _servicioUsers.GetUserByCustomerAsync(user.CustomerID);
+                        olista = new List<RI_Users> { userResult };
+                    }
+                    else
+                    {
+                        olista = await _servicioUsers.GetUsersAsync();
+                    }
+                    
                 }
 
                 ViewBag.Role = user.Role;

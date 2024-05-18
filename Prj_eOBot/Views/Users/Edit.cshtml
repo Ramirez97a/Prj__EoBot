@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutDash.cshtml";
+    int role = ViewBag.Role;
 }
 
 <div class="container">
@@ -20,42 +21,42 @@
                         <div class="form-group row mb-2">
                             <label for="TematicaID" class="control-label col-md-2">Nombre</label>
                             <div class="col-md-10">
-                                <input type="text" id="nombre" name="nombre" class="form-control" value="@item.Name" />
+                                <input type="text" id="nombre" name="nombre" class="form-control" value="@item.Name" @if (role == 4) { <text>disabled</text> }/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="TematicaID" class="control-label col-md-2">Apellidos</label>
                             <div class="col-md-10">
-                                <input type="text" id="apellidos" name="apellidos" class="form-control" value="@item.Surname" />
+                                <input type="text" id="apellidos" name="apellidos" class="form-control" value="@item.Surname" @if (role == 4) { <text>disabled</text> }/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="AceptoTerminos" class="control-label col-md-2">Email</label>
                             <div class="col-md-10">
-                                <input type="text" id="email" name="email" class="form-control" value="@item.Email" />
+                                <input type="text" id="email" name="email" class="form-control" value="@item.Email" @if (role == 4) { <text>disabled</text> }/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="AceptoTerminos" class="control-label col-md-2">Nombre usuario</label>
                             <div class="col-md-10">
-                                <input type="text" id="username" name="username" class="form-control" value="@item.UserName" />
+                                <input type="text" id="username" name="username" class="form-control" value="@item.UserName" @if (role == 4) { <text>disabled</text> }/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="AceptoTerminos" class="control-label col-md-2">Contraseña</label>
                             <div class="col-md-10">
-                                <input type="text" id="password" name="password" class="form-control" value="@item.Password" />
+                                <input type="text" id="password" name="password" class="form-control" value="@item.Password" @if (role == 4) { <text>disabled</text> }/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2" id="conteinerTematicaPadre">
                             <label for="TematicaID" class="control-label col-md-2">Role</label>
                             <div class="col-md-10">
-                                <select class="form-select" aria-label="Default select example" id="roleSelect">
+                                <select class="form-select" aria-label="Default select example" id="roleSelect" @if (role == 4) { <text>disabled</text> }>
                                     <option value="0" @(item.Role == 0 ? "selected" : "")>Seleccione un role</option>
                                     <option value="1" @(item.Role == 1 ? "selected" : "")>Administrador</option>
                                     <option value="2" @(item.Role == 2 ? "selected" : "")>Usuario</option>
@@ -65,35 +66,38 @@
                         <div class="form-group row mb-2" id="conteinerTematicaPadre">
                             <label for="TematicaID" class="control-label col-md-2">Status</label>
                             <div class="col-md-10">
-                                <select class="form-select" aria-label="Default select example" id="statusSelect">
+                                <select class="form-select" aria-label="Default select example" id="statusSelect" @if (role == 4) { <text>disabled</text> }>
                                     <option value="0" @(item.Status == 0 ? "selected" : "")>Seleccione un status</option>
                                     <option value="1" @(item.Status == 1 ? "selected" : "")>Activo</option>
                                     <option value="2" @(item.Status == 2 ? "selected" : "")>Inactivo</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group row mb-2" id="conteinerTematicaPadre">
                             <label for="TematicaID" class="control-label col-md-2">Cliente</label>
                             <div class="col">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" id="checkbox" name="checkbox" class="" aria-label="Checkbox para actualizar cliente" />
+                                            <input type="checkbox" id="checkbox" name="checkbox" class="" aria-label="Checkbox para actualizar cliente" @if(role == 3){<text>checked</text> <text>disabled</text>} @if(role == 2 || role == 4){ <text>disabled</text>}/>
                                             <span class="text-danger"></span>
                                         </div>
+                                      
                                     </div>
-                                    <select class="form-select" aria-label="Default select example" id="clientSelect">
+                                    <select class="form-select" aria-label="Default select example" id="clientSelect" @if (role == 3 || role == 2 || role == 4) { <text>disabled</text> }>
                                         @if (item.CustomerID == Guid.Empty || item.CustomerID == null)
                                         {
                                             <option value="0"></option>
                                         }
                                         else
                                         {
-                                            <option value="@item.CustomerID">@(item.CustomerID)</option>
+                                                <option value="@item.CustomerID" >@(item.CustomerID)</option>
+
                                         }
                                     </select>
                                  
-                                    <select class="form-select" aria-label="Default select example" id="clientSelect2" hidden>
+                                    <select class="form-select" aria-label="Default select example" id="clientSelect2" hidden @if (role == 3 || role == 2 || role == 4) { <text>disabled</text> }  >
                                     </select>
                                    
                                 </div>
@@ -118,6 +122,9 @@
 
 @section Scripts {
     <script>
+
+        var role = @Html.Raw(Json.Encode(role));
+
         $(document).ready(function () {
 
             $('#btnActualizar').click(function (e) {
@@ -148,8 +155,8 @@
 
                 var cliente;
                 var clientSelect = $('#clientSelect').val();
-                var clientSelect2 = $('#clientSelect2').val();   
-                
+                var clientSelect2 = $('#clientSelect2').val();
+
                 var actualizarCliente = $('#checkbox').is(':checked');
 
 
@@ -218,10 +225,13 @@
                 var clientSelect = $('#clientSelect2');
 
                 clientSelect.empty();
-                clientSelect.append($('<option>', {
-                    value: '',
-                    text: 'Seleccione un cliente'
-                }));
+                if (role != 3) {
+                    clientSelect.append($('<option>', {
+                        value: '',
+                        text: 'Seleccione un cliente'
+                    }));
+                }
+
 
                 data.forEach(function (cliente) {
                     clientSelect.append($('<option>', {
@@ -229,6 +239,7 @@
                         text: cliente.UserName
                     }));
                 });
+
             }
 
             function mostrarContenedorActualizado() {
