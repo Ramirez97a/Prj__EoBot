@@ -166,7 +166,7 @@
                             </div>
                         </a>
                         <ul class="collapse submenu list-unstyled" id="components" data-bs-parent="#accordionExample">
-                            @if (role == 1 || role == 2)
+                            @if (role == 1 || role == 2 ||  role == 3 || role ==4 )
                             {
                                 <li>
                                     <a href="@Url.Action("Index", "Users")">Usuarios</a>
@@ -175,12 +175,7 @@
                                     <a href="@Url.Action("Index", "Cliente")"> Clientes  </a>
                                 </li>
                             }
-                            else if (role == 3 || role == 4)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", "Users")">Usuarios</a>
-                                </li>
-                            }
+                           
 
 
 
