@@ -77,8 +77,10 @@
     <Compile Include="MyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepositoryClient.cs" />
+    <Compile Include="Repository\IRepositoryRole.cs" />
     <Compile Include="Repository\IRepositoryUsers.cs" />
     <Compile Include="Repository\RepositoryClient.cs" />
+    <Compile Include="Repository\RepositoryRole.cs" />
     <Compile Include="Repository\RepositoryUsers.cs" />
   </ItemGroup>
   <ItemGroup>

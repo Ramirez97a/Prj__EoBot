@@ -3,6 +3,7 @@ using Prj_Infraestructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -26,6 +27,10 @@ namespace Prj_eOBot.Controllers
             RI_Users userInSession = (RI_Users)Session["User"];
             try
             {
+                //if(userInSession.Role == 4)
+                //{
+                //    return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
+                //}
                 IServicioUsers _servicioUsers = new ServiceUsers();
                 RI_Users user =  await _servicioUsers.GetUserByIdAsync(id);
 
@@ -42,11 +47,17 @@ namespace Prj_eOBot.Controllers
 
         public async Task<ActionResult> Delete(int id)
         {
+            RI_Users userInSession = (RI_Users)Session["User"];
             try
             {
                 IServicioUsers _servicioUsers = new ServiceUsers();
-                RI_Users user = await _servicioUsers.GetUserByIdAsync(id);
+                if (userInSession.Role != 1)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
+                }
 
+                RI_Users user = await _servicioUsers.GetUserByIdAsync(id);
+                   
                 // Envía una lista que contenga solo el usuario a la vista
                 return View(new List<RI_Users> { user });
             }
@@ -72,14 +83,14 @@ namespace Prj_eOBot.Controllers
                 }
                 else
                 {
-                    if (user.Role == 3)
+                    if (user.Role == 3 || user.Role== 4 )
                     {
                         var userResult = await _servicioUsers.GetUserByCustomerAsync(user.CustomerID);
                         olista = new List<RI_Users> { userResult };
                     }
                     else
                     {
-                        olista = await _servicioUsers.GetUsersAsync();
+                        return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
                     }
                     
                 }
@@ -123,10 +134,14 @@ namespace Prj_eOBot.Controllers
         public async Task<JsonResult> DeleteUser(int id)
         {
             IServicioUsers _servicioUsers = new ServiceUsers();
-
+            RI_Users userInSession = (RI_Users)Session["User"];
             try
             {
-               await _servicioUsers.DeleteAsync(id);
+                if(userInSession.Role != 1)
+                {
+                    return Json(new { success = false, message = "No tienes permisos para realizar esta acción" });
+                }
+                await _servicioUsers.DeleteAsync(id);
                 return Json(new { success = true, message = "Eliminado correctamente" });
             }
             catch (Exception ex)
