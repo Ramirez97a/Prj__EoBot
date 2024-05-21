@@ -17,34 +17,66 @@ namespace Prj_eOBot.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return RedirectToAction("List");
+            RI_Users user = (RI_Users)Session["User"];
+            if (user != null)
+            {
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("NoAutorizado", "Login");
+            }
+
         }
         public ActionResult Create()
         {
-            RI_Users user = (RI_Users)Session["User"];
-
-            ViewBag.Role = user.Role;
-            return View();
+            try
+            {
+                RI_Users user = (RI_Users)Session["User"];
+                if (user != null)
+                {
+                    ViewBag.Role = user.Role;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("NoAutorizado", "Login");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+            
         }
         public async Task<ActionResult> Edit(int id)
         {
             RI_Users userInSession = (RI_Users)Session["User"];
             try
-            {              
-                IServicioUsers _servicioUsers = new ServiceUsers();
-                IServiceClient _serviceClient = new ServiceClient();
+            {       
+                
+                if(userInSession != null)
+                {
+                    IServicioUsers _servicioUsers = new ServiceUsers();
+                    IServiceClient _serviceClient = new ServiceClient();
 
-                RI_Users user =  await _servicioUsers.GetUserByIdAsync(id);
-                Rl_Robot robot = null;
+                    RI_Users user = await _servicioUsers.GetUserByIdAsync(id);
+                    Rl_Robot robot = null;
 
-                if (user.CustomerID != null) 
-                { 
-                    robot = await _serviceClient.GetRobotClientByIdAsync(user.CustomerID);
-                    // Envía una lista que contenga solo el usuario a la vista
-                    ViewBag.UserName = robot.UserName;                
+                    if (user.CustomerID != null)
+                    {
+                        robot = await _serviceClient.GetRobotClientByIdAsync(user.CustomerID);
+                        // Envía una lista que contenga solo el usuario a la vista
+                        ViewBag.UserName = robot.UserName;
+                    }
+                    ViewBag.Role = userInSession.Role;
+                    return View(new List<RI_Users> { user });
                 }
-                ViewBag.Role = userInSession.Role;
-                return View(new List<RI_Users> { user });
+                else
+                {
+                    return RedirectToAction("NoAutorizado", "Login");
+                }
+                
             }
             catch (Exception ex)
             {
@@ -59,20 +91,27 @@ namespace Prj_eOBot.Controllers
             ViewBag.Role = userInSession.Role;
             try
             {
-                IServicioUsers _servicioUsers = new ServiceUsers();
-                if (userInSession.Role != 1)
+                if(userInSession != null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
-                }
+                    IServicioUsers _servicioUsers = new ServiceUsers();
+                    if (userInSession.Role != 1)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
+                    }
 
-                RI_Users user = await _servicioUsers.GetUserByIdAsync(id);
-                   
-                // Envía una lista que contenga solo el usuario a la vista
-                return View(new List<RI_Users> { user });
+                    RI_Users user = await _servicioUsers.GetUserByIdAsync(id);
+
+                    // Envía una lista que contenga solo el usuario a la vista
+                    return View(new List<RI_Users> { user });
+                }
+                else
+                {
+                    return RedirectToAction("NoAutorizado", "Login");
+                }
             }
             catch (Exception ex)
             {
-                string mensaje = "Error al listar" + ex;
+                string mensaje = "Error al eliminar" + ex;
                 throw new Exception(mensaje);
             }
         }
@@ -84,39 +123,46 @@ namespace Prj_eOBot.Controllers
             IEnumerable<RI_Users> olista = null;
             try
             {
-                IServicioUsers _servicioUsers = new ServiceUsers();
-                IServiceClient _serviceClient = new ServiceClient();
-                if (user.Role == 1 || user.Role == 2)
+                if(user != null)
                 {
-                    olista = await _servicioUsers.GetUsersAsync();
+                    IServicioUsers _servicioUsers = new ServiceUsers();
+                    IServiceClient _serviceClient = new ServiceClient();
+                    if (user.Role == 1 || user.Role == 2)
+                    {
+                        olista = await _servicioUsers.GetUsersAsync();
 
+                    }
+                    else
+                    {
+                        if (user.Role == 3)
+                        {
+
+                            olista = await _servicioUsers.GetUsersByCustomerAsync(user.CustomerID);
+
+                        }
+                        else if (user.Role == 4)
+                        {
+                            var userResult = await _servicioUsers.GetUserByIdAsync(user.ID);
+                            Rl_Robot robot = null;
+                            robot = await _serviceClient.GetRobotClientByIdAsync(user.CustomerID);
+                            ViewBag.UserName = robot.UserName;
+                            olista = new List<RI_Users> { userResult };
+                            //return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
+                        }
+                    }
+
+                    ViewBag.Role = user.Role;
+                    return View(olista);
                 }
                 else
                 {
-                    if (user.Role == 3 )
-                    {
-
-                        olista = await _servicioUsers.GetUsersByCustomerAsync(user.CustomerID);
-
-                    }
-                    else if(user.Role==4)
-                    {
-                        var userResult= await _servicioUsers.GetUserByIdAsync(user.ID);
-                        Rl_Robot robot = null;
-                        robot = await _serviceClient.GetRobotClientByIdAsync(user.CustomerID);
-                        ViewBag.UserName = robot.UserName;
-                        olista  = new List<RI_Users> {userResult}; 
-                        //return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
-                    }
-                 
+                    return RedirectToAction("NoAutorizado", "Login");
                 }
 
-                ViewBag.Role = user.Role;
-                return View(olista);
             }
             catch (Exception)
             {
-                throw;
+                return RedirectToAction("NotFound", "Error");
             }
         }
 
