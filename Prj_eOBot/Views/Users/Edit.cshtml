@@ -76,8 +76,7 @@
                         <div class="form-group row mb-2" id="conteinerTematicaPadre">
                             <label for="TematicaID" class="control-label col-md-2">Status</label>
                             <div class="col-md-10">
-                                <select class="form-select" aria-label="Default select example" id="statusSelect"
-                                        @if (role == 4) { <text> disabled</text> }>
+                                <select class="form-select" aria-label="Default select example" id="statusSelect"  disabled>
                                     <option value="0" @(item.Status == 0 ? "selected" : "")>Seleccione un status</option>
                                     <option value="1" @(item.Status == 1 ? "selected" : "")>Activo</option>
                                     <option value="2" @(item.Status == 2 ? "selected" : "")>Inactivo</option>
@@ -145,9 +144,10 @@
                     alert("Por favor, seleccione un rol.");
                     return false;
                 }
-                else {
+                else 
+                {
                     guardarDatos();
-                }
+                } 
             });
             listarRoleSelect();
             listarClientSelect();

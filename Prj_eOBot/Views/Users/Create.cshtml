@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutDash.cshtml";
+    int role = ViewBag.Role;
 }
 
 <div class="container">
@@ -63,7 +64,7 @@
                     <div class="form-group row" id="conteinerTematicaPadre">
                         <label for="TematicaID" class="control-label col-md-2">Cliente</label>
                         <div class="col-md-10">
-                            <select class="form-select" aria-label="Default select example" id="clientSelect">                                
+                            <select class="form-select" aria-label="Default select example" id="clientSelect" @if (role !=1) { <text> disabled</text> }>                                
                             </select>
                         </div>
                     </div>
@@ -85,8 +86,8 @@
 @section Scripts {
    
     <script>
-        $(document).ready(function () {          
-
+        $(document).ready(function () {
+        var roleInSession = @Html.Raw(Json.Encode(role));
 
             $('#btnCrear').click(function (e) {
                 e.preventDefault();
@@ -98,19 +99,19 @@
                 else {
                     guardarDatos();
                 }
-             
+
             });
 
             listarClientSelect();
 
-            function guardarDatos() {              
+            function guardarDatos() {
                 var nombre = $('#nombre').val();
                 var apellidos = $('#apellidos').val();
                 var email = $('#email').val();
                 var username = $('#username').val();
                 var password = $('#password').val();
-                var role = $('#roleSelect').val();                
-                var clientSelect = $('#clientSelect').val();           
+                var role = $('#roleSelect').val();
+                var clientSelect = $('#clientSelect').val();
                 var customerClient;
 
                 if (clientSelect == null) {
@@ -118,18 +119,18 @@
                 }
                 else {
                     customerClient = clientSelect;
-                }               
-                
-                var data = {                   
+                }
+
+                var data = {
                     Name: nombre,
                     Surname: apellidos,
                     Email: email,
                     UserName: username,
                     Password: password,
-                    Role: role,   
+                    Role: role,
                     CustomerID: customerClient
                 };
-               
+
                 $.ajax({
                     type: "POST",
                     url: "/Users/Save",
@@ -151,10 +152,10 @@
                 });
             }
 
-            function listarClientSelect() {          
+            function listarClientSelect() {
 
                 $.ajax({
-                    url: '/Cliente/ListClient', 
+                    url: '/Cliente/ListClient',
                     type: 'GET',
                     dataType: 'json',
                     success: function (response) {
@@ -163,11 +164,11 @@
                             console.log(response.message);
                             console.log(response.Data);
                             llenarClientSelect(response.Data);
-                        } else {                           
+                        } else {
                             console.error('Error: ' + response.message);
                         }
                     },
-                    error: function (xhr, status, error) {                     
+                    error: function (xhr, status, error) {
                         console.error('Error de AJAX:', error);
                     }
                 });
@@ -176,13 +177,16 @@
             function llenarClientSelect(data) {
                 var clientSelect = $('#clientSelect');
 
-                clientSelect.empty(); 
-                clientSelect.append($('<option>', {
-                    value: '',
-                    text: 'Seleccione un cliente'
-                }));
+                clientSelect.empty();
 
-               
+                if (roleInSession ===1) {
+                    clientSelect.append($('<option>', {
+                        value: '',
+                        text: 'Seleccione un cliente'
+                    }));
+                }
+
+
                 data.forEach(function (cliente) {
                     clientSelect.append($('<option>', {
                         value: cliente.ID,
