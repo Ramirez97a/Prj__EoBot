@@ -118,7 +118,7 @@
                             <div class="form-group row mb-2">
                                 <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
+                                    <textarea class="form-control" id="token" rows="3">@item.Token</textarea>
                                     @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
                                     <span class="text-danger"></span>
                                 </div>
@@ -226,7 +226,7 @@
                             <div class="form-group row mb-2">
                                 <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
+                                    <textarea class="form-control" id="token" rows="3">@item.Token</textarea>
                                     @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
                                     <span class="text-danger"></span>
                                 </div>
@@ -335,7 +335,7 @@
                             <div class="form-group row mb-2">
                                 <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
+                                    <textarea class="form-control" id="token" rows="3">@item.Token</textarea>
                                     @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
                                     <span class="text-danger"></span>
                                 </div>
@@ -442,7 +442,7 @@
                             <div class="form-group row mb-2">
                                 <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
+                                    <textarea class="form-control" id="token" rows="3">@item.Token</textarea>
                                     @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
                                     <span class="text-danger"></span>
                                 </div>
@@ -493,6 +493,7 @@
                 var urlcarpetaValue = $("#urlcarpeta").val();
                 var statusSelectValue = $("#statusSelect").val();
                 var emailNotificacionValue = $("#emailNotificacion").val();
+                var fechaSuscripcion = $("#fechaSuscripcion").val();
                 var tokenValue = $("#token").val();
 
 
@@ -508,7 +509,8 @@
                     LocalFolder: urlcarpetaValue,
                     StatusClient: statusSelectValue,
                     EmailNotificaciones: emailNotificacionValue,
-                    Token: tokenValue
+                    Token: tokenValue,
+                    DateSubscribe: fechaSuscripcion
                 };
 
                 $.ajax({
