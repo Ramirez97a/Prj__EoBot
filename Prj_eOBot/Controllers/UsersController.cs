@@ -21,6 +21,9 @@ namespace Prj_eOBot.Controllers
         }
         public ActionResult Create()
         {
+            RI_Users user = (RI_Users)Session["User"];
+
+            ViewBag.Role = user.Role;
             return View();
         }
         public async Task<ActionResult> Edit(int id)

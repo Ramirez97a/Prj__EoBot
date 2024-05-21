@@ -17,6 +17,10 @@ namespace Prj_eOBot.Controllers
         public ActionResult Index()
         {
             return View();
+        } 
+        public ActionResult NoAutorizado()
+        {
+            return View();
         }       
 
         public async Task<ActionResult> LoginUser(string usermail, string userPassword)
@@ -55,5 +59,6 @@ namespace Prj_eOBot.Controllers
             }
 
         }
+
     }
 }

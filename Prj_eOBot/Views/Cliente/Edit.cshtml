@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutDash.cshtml";
+    int role = ViewBag.Role;
 }
 
 <div class="container">
@@ -17,109 +18,437 @@
                 {
                     <input type="text" id="id" name="nombre" class="form-control" hidden value="@item.ID" />
                     <div class="form-horizontal" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding:20px;">
-                        <div class="form-group row mb-2">
-                            <label for="TematicaID" class="control-label col-md-2">Email</label>
-                            <div class="col-md-10">
-                                <input type="text" id="email" name="email" class="form-control" value="@item.UserName" />
-                                <span class="text-danger"></span>
+                        @if (role == 1)
+                        {
+                            <div class="form-group row mb-2">
+                                <label for="TematicaID" class="control-label col-md-2">Email</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="email" name="email" class="form-control" value="@item.UserName" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="TematicaID" class="control-label col-md-2">Contraseña</label>
-                            <div class="col-md-10">
-                                <input type="text" id="password" name="password" class="form-control" value="@item.Password" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="TematicaID" class="control-label col-md-2">Contraseña</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="password" name="password" class="form-control" value="@item.Password" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Login Url</label>
-                            <div class="col-md-10">
-                                <input type="text" id="url" name="url" class="form-control" value="@item.LoginUrl" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Login Url</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="url" name="url" class="form-control" value="@item.LoginUrl" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Node Name</label>
-                            <div class="col-md-10">
-                                <input type="text" id="nodeName" name="nodeName" class="form-control" value="@item.NodeName" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Node Name</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="nodeName" name="nodeName" class="form-control" value="@item.NodeName" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Hora de inicio Reporte</label>
-                            <div class="col-md-10">
-                                <input type="time" id="inicioReporte" name="inicioReporte" class="form-control" value="@item.TimeGenReports.ToString("HH:mm:ss")" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Hora de inicio Reporte</label>
+                                <div class="col-md-10">
+                                    <input type="time" id="inicioReporte" name="inicioReporte" class="form-control" value="@item.TimeGenReports.ToString("HH:mm:ss")" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Hola finalizada Reporte </label>
-                            <div class="col-md-10">
-                                <input type="time" id="finReporte" name="finReporte" class="form-control" value="@item.TimeDownReports.ToString("HH:mm:ss")" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Hola finalizada Reporte </label>
+                                <div class="col-md-10">
+                                    <input type="time" id="finReporte" name="finReporte" class="form-control" value="@item.TimeDownReports.ToString("HH:mm:ss")" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Time Span </label>
-                            <div class="col-md-10">
-                                <input type="text" id="timespan" name="timespan" class="form-control" value="@item.Timespan" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Time Span </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="timespan" name="timespan" class="form-control" value="@item.Timespan" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Carpeta </label>
-                            <div class="col-md-10">
-                                <input type="text" id="urlcarpeta" name="urlcarpeta" class="form-control" value="@item.LocalFolder" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Carpeta </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="urlcarpeta" name="urlcarpeta" class="form-control" value="@item.LocalFolder" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2" id="conteinerTematicaPadre">
-                            <label for="TematicaID" class="control-label col-md-2">Status</label>
-                            <div class="col-md-10">
-                                <select class="form-select" aria-label="Default select example" id="statusSelect">
-                                    <option value="0" @(item.StatusClient == 0 ? "selected" : "")>Seleccione un status</option>
-                                    <option value="1" @(item.StatusClient == 1 ? "selected" : "")>Activo</option>
-                                    <option value="2" @(item.StatusClient == 2 ? "selected" : "")>Inactivo</option>
-                                </select>
+                            <div class="form-group row mb-2" id="conteinerTematicaPadre">
+                                <label for="TematicaID" class="control-label col-md-2">Status</label>
+                                <div class="col-md-10">
+                                    <select class="form-select" aria-label="Default select example" id="statusSelect">
+                                        <option value="0" @(item.StatusClient == 0 ? "selected" : "")>Seleccione un status</option>
+                                        <option value="1" @(item.StatusClient == 1 ? "selected" : "")>Activo</option>
+                                        <option value="2" @(item.StatusClient == 2 ? "selected" : "")>Inactivo</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Fecha de suscripción </label>
-                            <div class="col-md-10">
-                                @if (item.DateSubscribe.HasValue)
-                                {
-                                    <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="@item.DateSubscribe.Value.ToString("dd/MM/yyyy")" />
-                                }
-                                else
-                                {
-                                    <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="" />
-                                }
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Fecha de suscripción </label>
+                                <div class="col-md-10">
+                                    @if (item.DateSubscribe.HasValue)
+                                    {
+                                        <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="@item.DateSubscribe.Value.ToString("dd/MM/yyyy")" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="" />
+                                    }
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Notificar </label>
-                            <div class="col-md-10">
-                                <input type="text" id="emailNotificacion" name="emailNotificacion" class="form-control" value="@item.EmailNotificaciones" placeholder="Email (ejemplo@gmail.com)" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Notificar </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="emailNotificacion" name="emailNotificacion" class="form-control" value="@item.EmailNotificaciones" placeholder="Email (ejemplo@gmail.com)" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Ultimo reporte </label>
-                            <div class="col-md-10">
-                                <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Ultimo reporte </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
-                            <div class="col-md-10">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
-                               @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
-                                <span class="text-danger"></span>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
+                                    @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
+                                    <span class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
+
+                        }
+
+                        @if (role == 2)
+                        {
+                            <div class="form-group row mb-2">
+                                <label for="TematicaID" class="control-label col-md-2">Email</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="email" name="email" class="form-control" value="@item.UserName" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="TematicaID" class="control-label col-md-2">Contraseña</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="password" name="password" class="form-control" value="@item.Password" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Login Url</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="url" name="url" class="form-control" value="@item.LoginUrl" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Node Name</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="nodeName" name="nodeName" class="form-control" value="@item.NodeName" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Hora de inicio Reporte</label>
+                                <div class="col-md-10">
+                                    <input type="time" id="inicioReporte" name="inicioReporte" class="form-control" value="@item.TimeGenReports.ToString("HH:mm:ss")" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Hola finalizada Reporte </label>
+                                <div class="col-md-10">
+                                    <input type="time" id="finReporte" name="finReporte" class="form-control" value="@item.TimeDownReports.ToString("HH:mm:ss")" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Time Span </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="timespan" name="timespan" class="form-control" value="@item.Timespan" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Carpeta </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="urlcarpeta" name="urlcarpeta" class="form-control" value="@item.LocalFolder" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2" id="conteinerTematicaPadre">
+                                <label for="TematicaID" class="control-label col-md-2">Status</label>
+                                <div class="col-md-10">
+                                    <select class="form-select" aria-label="Default select example" id="statusSelect" disabled>
+                                        <option value="0" @(item.StatusClient == 0 ? "selected" : "")>Seleccione un status</option>
+                                        <option value="1" @(item.StatusClient == 1 ? "selected" : "")>Activo</option>
+                                        <option value="2" @(item.StatusClient == 2 ? "selected" : "")>Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Fecha de suscripción </label>
+                                <div class="col-md-10">
+                                    @if (item.DateSubscribe.HasValue)
+                                    {
+                                        <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="@item.DateSubscribe.Value.ToString("dd/MM/yyyy")" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value=""  readonly/>
+                                    }
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Notificar </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="emailNotificacion" name="emailNotificacion" class="form-control" value="@item.EmailNotificaciones" placeholder="Email (ejemplo@gmail.com)" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Ultimo reporte </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
+                                    @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        }
+
+
+                        @if (role == 3 )
+                        {
+                            <div class="form-group row mb-2">
+                                <label for="TematicaID" class="control-label col-md-2">Email</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="email" name="email" class="form-control" value="@item.UserName" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="TematicaID" class="control-label col-md-2">Contraseña</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="password" name="password" class="form-control" value="@item.Password" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Login Url</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="url" name="url" class="form-control" value="@item.LoginUrl" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Node Name</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="nodeName" name="nodeName" class="form-control" value="@item.NodeName" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Hora de inicio Reporte</label>
+                                <div class="col-md-10">
+                                    <input type="time" id="inicioReporte" name="inicioReporte" class="form-control" value="@item.TimeGenReports.ToString("HH:mm:ss")" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Hola finalizada Reporte </label>
+                                <div class="col-md-10">
+                                    <input type="time" id="finReporte" name="finReporte" class="form-control" value="@item.TimeDownReports.ToString("HH:mm:ss")" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Time Span </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="timespan" name="timespan" class="form-control" value="@item.Timespan" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Carpeta </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="urlcarpeta" name="urlcarpeta" class="form-control" value="@item.LocalFolder" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2" id="conteinerTematicaPadre">
+                                <label for="TematicaID" class="control-label col-md-2">Status</label>
+                                <div class="col-md-10">
+                                    <select class="form-select" aria-label="Default select example" id="statusSelect" disabled>
+                                        <option value="0" @(item.StatusClient == 0 ? "selected" : "")>Seleccione un status</option>
+                                        <option value="1" @(item.StatusClient == 1 ? "selected" : "")>Activo</option>
+                                        <option value="2" @(item.StatusClient == 2 ? "selected" : "")>Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Fecha de suscripción </label>
+                                <div class="col-md-10">
+                                    @if (item.DateSubscribe.HasValue)
+                                    {
+                                        <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="@item.DateSubscribe.Value.ToString("dd/MM/yyyy")" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="" readonly />
+                                    }
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Notificar </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="emailNotificacion" name="emailNotificacion" class="form-control" value="@item.EmailNotificaciones" placeholder="Email (ejemplo@gmail.com)" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Ultimo reporte </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
+                                    @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        }
+
+                        @if (role == 4)
+                        {
+                            <div class="form-group row mb-2">
+                                <label for="TematicaID" class="control-label col-md-2">Email</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="email" name="email" class="form-control" value="@item.UserName" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="TematicaID" class="control-label col-md-2">Contraseña</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="password" name="password" class="form-control" value="@item.Password" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Login Url</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="url" name="url" class="form-control" value="@item.LoginUrl" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Node Name</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="nodeName" name="nodeName" class="form-control" value="@item.NodeName" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Hora de inicio Reporte</label>
+                                <div class="col-md-10">
+                                    <input type="time" id="inicioReporte" name="inicioReporte" class="form-control" value="@item.TimeGenReports.ToString("HH:mm:ss")" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Hola finalizada Reporte </label>
+                                <div class="col-md-10">
+                                    <input type="time" id="finReporte" name="finReporte" class="form-control" value="@item.TimeDownReports.ToString("HH:mm:ss")" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Time Span </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="timespan" name="timespan" class="form-control" value="@item.Timespan" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Carpeta </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="urlcarpeta" name="urlcarpeta" class="form-control" value="@item.LocalFolder" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2" id="conteinerTematicaPadre">
+                                <label for="TematicaID" class="control-label col-md-2">Status</label>
+                                <div class="col-md-10">
+                                    <select class="form-select" aria-label="Default select example" id="statusSelect" disabled>
+                                        <option value="0" @(item.StatusClient == 0 ? "selected" : "")>Seleccione un status</option>
+                                        <option value="1" @(item.StatusClient == 1 ? "selected" : "")>Activo</option>
+                                        <option value="2" @(item.StatusClient == 2 ? "selected" : "")>Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Fecha de suscripción </label>
+                                <div class="col-md-10">
+                                    @if (item.DateSubscribe.HasValue)
+                                    {
+                                        <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="@item.DateSubscribe.Value.ToString("dd/MM/yyyy")" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" id="fechaSuscripcion" name="fechaSuscripcion" class="form-control" value="" readonly />
+                                    }
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Notificar </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="emailNotificacion" name="emailNotificacion" class="form-control" value="@item.EmailNotificaciones" placeholder="Email (ejemplo@gmail.com)" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Ultimo reporte </label>
+                                <div class="col-md-10">
+                                    <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <label for="AceptoTerminos" class="control-label col-md-2">Token </label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">@item.Token</textarea>
+                                    @* <input type="text" id="ultimoreporte" name="ultimoreporte" class="form-control" value="@item.FechaHoraUltimoReporte" />*@
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        }
+
 
 
                     </div>
@@ -145,9 +474,9 @@
 
             $('#btnActualizar').click(function (e) {
                 e.preventDefault();
-               
-                    guardarDatos();
-                
+
+                guardarDatos();
+
 
             });
 
@@ -162,13 +491,13 @@
                 var finReporteValue = $("#finReporte").val();
                 var timespanValue = $("#timespan").val();
                 var urlcarpetaValue = $("#urlcarpeta").val();
-                var statusSelectValue = $("#statusSelect").val();             
-                var emailNotificacionValue = $("#emailNotificacion").val();             
+                var statusSelectValue = $("#statusSelect").val();
+                var emailNotificacionValue = $("#emailNotificacion").val();
                 var tokenValue = $("#token").val();
 
 
                 var data = {
-                    ID: idValue,                  
+                    ID: idValue,
                     UserName: emailValue,
                     Password: passwordValue,
                     LoginUrl: urlValue,
@@ -176,8 +505,8 @@
                     TimeGenReports: inicioReporteValue,
                     TimeDownReports: finReporteValue,
                     Timespan: timespanValue,
-                    LocalFolder: urlcarpetaValue,                 
-                    StatusClient: statusSelectValue,  
+                    LocalFolder: urlcarpetaValue,
+                    StatusClient: statusSelectValue,
                     EmailNotificaciones: emailNotificacionValue,
                     Token: tokenValue
                 };
