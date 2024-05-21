@@ -23,52 +23,54 @@
                         <div class="form-group row mb-2">
                             <label for="TematicaID" class="control-label col-md-2">Nombre</label>
                             <div class="col-md-10">
-                                <input type="text" id="nombre" name="nombre" class="form-control" value="@item.Name" />
+                                <input type="text" id="nombre" name="nombre" class="form-control" value="@item.Name" disabled/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="TematicaID" class="control-label col-md-2">Apellidos</label>
                             <div class="col-md-10">
-                                <input type="text" id="apellidos" name="apellidos" class="form-control" value="@item.Surname" />
+                                <input type="text" id="apellidos" name="apellidos" class="form-control" value="@item.Surname" disabled/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="AceptoTerminos" class="control-label col-md-2">Email</label>
                             <div class="col-md-10">
-                                <input type="text" id="email" name="email" class="form-control" value="@item.Email" />
+                                <input type="text" id="email" name="email" class="form-control" value="@item.Email" disabled/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="AceptoTerminos" class="control-label col-md-2">Nombre usuario</label>
                             <div class="col-md-10">
-                                <input type="text" id="username" name="username" class="form-control" value="@item.UserName" />
+                                <input type="text" id="username" name="username" class="form-control" value="@item.UserName" disabled/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2">
                             <label for="AceptoTerminos" class="control-label col-md-2">Contraseña</label>
                             <div class="col-md-10">
-                                <input type="text" id="password" name="password" class="form-control" value="@item.Password" />
+                                <input type="text" id="password" name="password" class="form-control" value="@item.Password" disabled/>
                                 <span class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-2" id="conteinerTematicaPadre">
                             <label for="TematicaID" class="control-label col-md-2">Role</label>
                             <div class="col-md-10">
-                                <select class="form-select" aria-label="Default select example" id="roleSelect">
+                                <select class="form-select" aria-label="Default select example" id="roleSelect" disabled>
                                     <option value="0" @(item.Role == 0 ? "selected" : "")>Seleccione un role</option>
                                     <option value="1" @(item.Role == 1 ? "selected" : "")>Administrador</option>
-                                    <option value="2" @(item.Role == 2 ? "selected" : "")>Usuario</option>
+                                    <option value="2" @(item.Role == 2 ? "selected" : "")>Usuario General</option>
+                                    <option value="3" @(item.Role == 3 ? "selected" : "")>Usuario Adm Cliente</option>
+                                    <option value="4" @(item.Role == 4 ? "selected" : "")>Usuario Cliente</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row" id="conteinerTematicaPadre">
                             <label for="TematicaID" class="control-label col-md-2">Status</label>
                             <div class="col-md-10">
-                                <select class="form-select" aria-label="Default select example" id="statusSelect">
+                                <select class="form-select" aria-label="Default select example" id="statusSelect" disabled>
                                     <option value="0" @(item.Status == 0 ? "selected" : "")>Seleccione un status</option>
                                     <option value="1" @(item.Status == 1 ? "selected" : "")>Activo</option>
                                     <option value="2" @(item.Status == 2 ? "selected" : "")>Inactivo</option>

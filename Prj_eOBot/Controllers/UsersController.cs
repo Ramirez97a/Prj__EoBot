@@ -129,7 +129,7 @@ namespace Prj_eOBot.Controllers
             {
                 RI_Users user = (RI_Users)Session["User"];
                
-                if (user.Role == 1 || user.Role == 3)
+                if (user.Role == 1 || user.Role == 2 || user.Role == 3)
                 {
                     
                      await _servicioUsers.SaveAsync(ri_users);
