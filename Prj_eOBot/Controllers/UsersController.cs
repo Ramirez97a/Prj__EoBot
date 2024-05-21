@@ -27,15 +27,19 @@ namespace Prj_eOBot.Controllers
         {
             RI_Users userInSession = (RI_Users)Session["User"];
             try
-            {
-                //if(userInSession.Role == 4)
-                //{
-                //    return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
-                //}
+            {              
                 IServicioUsers _servicioUsers = new ServiceUsers();
-                RI_Users user =  await _servicioUsers.GetUserByIdAsync(id);
+                IServiceClient _serviceClient = new ServiceClient();
 
-                // Envía una lista que contenga solo el usuario a la vista
+                RI_Users user =  await _servicioUsers.GetUserByIdAsync(id);
+                Rl_Robot robot = null;
+
+                if (user.CustomerID != null) 
+                { 
+                    robot = await _serviceClient.GetRobotClientByIdAsync(user.CustomerID);
+                    // Envía una lista que contenga solo el usuario a la vista
+                    ViewBag.UserName = robot.UserName;                
+                }
                 ViewBag.Role = userInSession.Role;
                 return View(new List<RI_Users> { user });
             }
@@ -82,6 +86,7 @@ namespace Prj_eOBot.Controllers
                 if (user.Role == 1 || user.Role == 2)
                 {
                     olista = await _servicioUsers.GetUsersAsync();
+
                 }
                 else
                 {
@@ -93,7 +98,7 @@ namespace Prj_eOBot.Controllers
                     }
                     else if(user.Role==4)
                     {
-                        var userResult= await _servicioUsers.GetUserByCustomerAsync(user.CustomerID);
+                        var userResult= await _servicioUsers.GetUserByIdAsync(user.ID);
                         Rl_Robot robot = null;
                         robot = await _serviceClient.GetRobotClientByIdAsync(user.CustomerID);
                         ViewBag.UserName = robot.UserName;
