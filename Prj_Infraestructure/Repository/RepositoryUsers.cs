@@ -67,7 +67,7 @@ namespace prj_Infraestructure.Repositorys
                 throw;
             }
         }
-
+      
 
         public async Task<RI_Users> Login(string userName, string userPassword)
         {
@@ -283,6 +283,61 @@ namespace prj_Infraestructure.Repositorys
                     }
                 }
                 return oRI_Users;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "Error en la base de datos: " + dbEx.Message;
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "Error al obtener el usuario: " + ex.Message;
+                throw new Exception(mensaje);
+            }
+        }
+
+        public async Task<IEnumerable<RI_Users>> GetUsersByCustomerAsync(Guid? customerID)
+        {
+            List<RI_Users> olista = new List<RI_Users>();
+            try
+            {
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    var connectionString = ctx.Database.Connection.ConnectionString;
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        await connection.OpenAsync();
+
+                        using (SqlCommand cmd = new SqlCommand("Sp_GetUserByCustomerID", connection))
+                        {
+                            cmd.Parameters.Add("@CustomerID", SqlDbType.UniqueIdentifier).Value = customerID;
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                            {
+                                while (await reader.ReadAsync())
+                                {
+                                    RI_Users oRI_Users = new RI_Users();
+
+                                    oRI_Users.ID = Convert.ToInt32(reader["ID"]);
+                                    oRI_Users.Name = reader["Name"].ToString();
+                                    oRI_Users.Surname = reader["Surname"].ToString();
+                                    oRI_Users.Email = reader["Email"].ToString();
+                                    oRI_Users.UserName = reader["UserName"].ToString();
+                                    oRI_Users.Password = reader["Password"].ToString();
+                                    oRI_Users.Role = reader["Role"] != DBNull.Value ? (int)reader["Role"] : (int?)null;
+                                    oRI_Users.Status = reader["Status"] != DBNull.Value ? (int)reader["Status"] : (int?)null;
+                                    oRI_Users.CustomerID = reader["CustomerID"] != DBNull.Value ? (Guid)reader["CustomerID"] : (Guid?)null;
+
+                                    olista.Add(oRI_Users);
+                                }
+                            }
+                        }
+                    }
+                }
+                return olista;
             }
             catch (DbUpdateException dbEx)
             {

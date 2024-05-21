@@ -4,6 +4,8 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutDash.cshtml";
     int role = ViewBag.Role;
+    var user = Model.FirstOrDefault(); 
+    var userRole = user?.Role ?? 0;
 }
 
 
@@ -64,12 +66,12 @@
                             <label for="TematicaID" class="control-label col-md-2">Role</label>
                             <div class="col-md-10">
                                 <select class="form-select" aria-label="Default select example" id="roleSelect"
-                                        @if (role == 4) { <text> disabled</text> }>
-                                    <option value="0" @(item.Role == 0 ? "selected" : "")>Seleccione un role</option>
+                                        @if (role == 4) { <text> disabled</text> } roleUsser=@item.Role>
+                                    @*<option value="0" @(item.Role == 0 ? "selected" : "")>Seleccione un role</option>
                                     <option value="1" @(item.Role == 1 ? "selected" : "")>Administrador</option>
                                     <option value="2" @(item.Role == 2 ? "selected" : "")>Usuario General</option>
                                     <option value="3" @(item.Role == 3 ? "selected" : "")>Usuario Adm Cliente</option>
-                                    <option value="4" @(item.Role == 4 ? "selected" : "")>Usuario Cliente</option>
+                                    <option value="4" @(item.Role == 4 ? "selected" : "")>Usuario Cliente</option>*@
 
                                 </select>
                             </div>
@@ -136,7 +138,7 @@
 @section Scripts {
     <script>
         var roleInSession = @Html.Raw(Json.Encode(role));
-
+        var userRole = @Html.Raw(Json.Encode(userRole));
         $(document).ready(function () {
 
             $('#btnActualizar').click(function (e) {
@@ -276,48 +278,41 @@
             $('#checkbox').change(function () {
                 manejarCambioCheckbox();
             });
-        
-        //    listarRoleSelect();
 
-        //    function listarRoleSelect() {
-
-        //        $.ajax({
-        //            url: '/Role/ListRole',
-        //            type: 'GET',
-        //            dataType: 'json',
-        //            success: function (response) {
-
-        //                if (response.Data != null) {
-        //                    llenarRoleSelect(response.Data);
-        //                } else {
-        //                    console.error('Error: ' + response.message);
-        //                }
-        //            },
-        //            error: function (xhr, status, error) {
-        //                console.error('Error de AJAX:', error);
-        //            }
-        //        });
-        //    }
-
-        //    function llenarRoleSelect(data) {
-        //        var roleSelect = $('#roleSelect');
-
-        //      /*  roleSelect.empty();
-        //        if (roleInSession != 3) {
-        //            roleSelect.append($('<option>', {
-        //                value: '',
-        //                text: 'Seleccione un rol'
-        //            }));
-        //        }*/
-
-        //        data.forEach(function (role) {
-        //            roleSelect.append($('<option>', {
-        //                value: role.ID,
-        //                text: role.Description
-        //            }));
-        //        });
-        //}
             
+
+            function listarRoleSelect() {
+
+                $.ajax({
+                    url: '/Role/ListRole',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        if (response.Data != null) {
+                            llenarRoleSelect(response.Data);
+                        } else {
+                            console.error('Error: ' + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error de AJAX:', error);
+                    }
+                });
+            }
+
+            function llenarRoleSelect(data) {
+                var roleSelect = $('#roleSelect');
+                roleSelect.empty();
+                data.forEach(function (role) {
+                    roleSelect.append($('<option>', {
+                        value: role.ID,
+                        text: role.Description,
+                        selected: role.ID===userRole
+                    }));
+                });
+        }
+
         });
     </script>
 }

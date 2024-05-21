@@ -16,5 +16,6 @@ namespace Prj_AplicationCore
         Task<RI_Users> GetUserByIdAsync(int id);
         Task<RI_Users> GetUserByCustomerAsync(Guid? customerID);
         Task DeleteAsync(int id);
+        Task<IEnumerable<RI_Users>> GetUsersByCustomerAsync(Guid? customerID);
     }
 }

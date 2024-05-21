@@ -96,9 +96,10 @@
 
     <script>
         $(document).ready(function () {
+        });
 
             function deleteUsers(id) {
-                var url = `/Users/Delete?id=${id}`;
+                var url = `/Users/DeleteUser?id=${id}`;
                 $.ajax({
                     type: "POST",
                     url: url, 
@@ -116,7 +117,7 @@
                     }
                 });
             }
-        });
+       
 
     </script>
 }

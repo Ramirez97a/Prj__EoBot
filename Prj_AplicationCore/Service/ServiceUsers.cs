@@ -46,6 +46,9 @@ namespace Prj_AplicationCore
             await repository.DeleteAsync(id);
         }
 
-       
+        public async Task<IEnumerable<RI_Users>> GetUsersByCustomerAsync(Guid? customerID)
+        {
+            return await repository.GetUsersByCustomerAsync(customerID);
+        }
     }
 }

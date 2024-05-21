@@ -1,4 +1,5 @@
 ﻿using Prj_AplicationCore;
+using Prj_AplicationCore.Service;
 using Prj_Infraestructure.Models;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,7 @@ namespace Prj_eOBot.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             RI_Users userInSession = (RI_Users)Session["User"];
+            ViewBag.Role = userInSession.Role;
             try
             {
                 IServicioUsers _servicioUsers = new ServiceUsers();
@@ -76,23 +78,29 @@ namespace Prj_eOBot.Controllers
             try
             {
                 IServicioUsers _servicioUsers = new ServiceUsers();
-
+                IServiceClient _serviceClient = new ServiceClient();
                 if (user.Role == 1 || user.Role == 2)
                 {
                     olista = await _servicioUsers.GetUsersAsync();
                 }
                 else
                 {
-                    if (user.Role == 3 || user.Role== 4 )
+                    if (user.Role == 3 )
                     {
-                        var userResult = await _servicioUsers.GetUserByCustomerAsync(user.CustomerID);
-                        olista = new List<RI_Users> { userResult };
+
+                        olista = await _servicioUsers.GetUsersByCustomerAsync(user.CustomerID);
+
                     }
-                    else
+                    else if(user.Role==4)
                     {
-                        return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
+                        var userResult= await _servicioUsers.GetUserByCustomerAsync(user.CustomerID);
+                        Rl_Robot robot = null;
+                        robot = await _serviceClient.GetRobotClientByIdAsync(user.CustomerID);
+                        ViewBag.UserName = robot.UserName;
+                        olista  = new List<RI_Users> {userResult}; 
+                        //return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "No tiene permiso para realizar esta acción");
                     }
-                    
+                 
                 }
 
                 ViewBag.Role = user.Role;
@@ -133,8 +141,10 @@ namespace Prj_eOBot.Controllers
         }
         public async Task<JsonResult> DeleteUser(int id)
         {
+
             IServicioUsers _servicioUsers = new ServiceUsers();
             RI_Users userInSession = (RI_Users)Session["User"];
+            ViewBag.Role = userInSession.Role;
             try
             {
                 if(userInSession.Role != 1)
